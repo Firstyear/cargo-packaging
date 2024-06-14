@@ -9,6 +9,7 @@
 
 %cargo_build() \
 %{shrink:\
+    find . -name .cargo-checksum.json -exec sed -i -E 's#"([^"]*/|)config\.(guess|sub)":"[^"]*",##g' {} + && \
     unset LIBSSH2_SYS_USE_PKG_CONFIG && \
     if [ -z "$RUSTC_WRAPPER" ]; then CARGO_AUDITABLE="auditable" ; fi && \
     %{__cargo} $CARGO_AUDITABLE build \
